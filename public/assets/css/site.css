@@ -753,9 +753,6 @@ header.site .mark img {
   display: none;
 }
 @media (max-width: 640px) {
-  header.site {
-    position: relative;
-  }
   header.site .wrap {
     flex-wrap: nowrap;
     padding-block: 12px;
@@ -763,18 +760,12 @@ header.site .mark img {
   header.site .mark img {
     height: 22px;
   }
-  .hright {
-    gap: 4px;
-  }
-  .lang {
-    margin-left: 0px;
-  }
   .menu-btn {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     width: 44px;
     height: 44px;
     margin-right: -10px;
@@ -786,49 +777,89 @@ header.site .mark img {
   }
   .menu-btn i {
     display: block;
-    width: 22px;
-    height: 2px;
+    width: 28px;
+    height: 1.5px;
     background: currentcolor;
-    transition: transform 0.2s, opacity 0.2s;
+    transition: transform 0.25s;
   }
   header.site.open .menu-btn i:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
+    transform: translateY(4.75px) rotate(45deg);
   }
   header.site.open .menu-btn i:nth-child(2) {
-    opacity: 0;
+    transform: translateY(-4.75px) rotate(-45deg);
   }
-  header.site.open .menu-btn i:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-  nav.main {
+
+  /* Closed: the links and IS EN are hidden on phones */
+  .hright {
     display: none;
-    position: absolute;
-    top: 100%;
+  }
+
+  /* Open: a plain full-screen panel with the links centred */
+  body header.site.open {
+    position: fixed;
+    top: 0px;
     left: 0px;
     right: 0px;
-    z-index: 10;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0px;
-    padding: 6px max(20px, env(safe-area-inset-right, 0px)) 14px;
+    z-index: 20;
     background: var(--white);
     color: var(--ink);
-    border-bottom: 1px solid var(--stone2);
-    box-shadow: rgba(16, 12, 8, 0.08) 0px 12px 24px;
-    font-size: 20px;
+    border-bottom-color: transparent;
   }
-  header.site.open nav.main {
+  body.home header.site.open .mark {
+    visibility: visible;
+  }
+  header.site.open .hright {
     display: flex;
+    position: fixed;
+    inset: 0px;
+    z-index: -1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px max(32px, env(safe-area-inset-bottom, 0px));
+    background: var(--white);
   }
-  nav.main a {
-    padding: 10px 0px 8px;
-    white-space: nowrap;
+  nav.main {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 32px;
+    line-height: 1.3;
   }
-  body.home nav.main a[aria-current="page"] {
-    border-bottom-color: var(--ink);
-  }
+  nav.main a,
+  nav.main a[aria-current="page"],
+  body.home nav.main a[aria-current="page"],
+  nav.main a:hover,
   body.home nav.main a:hover {
-    border-bottom-color: var(--stone5);
+    padding: 4px 8px;
+    border-bottom: 0px;
+  }
+  .lang {
+    position: absolute;
+    bottom: max(32px, env(safe-area-inset-bottom, 0px));
+    left: 0px;
+    right: 0px;
+    justify-content: center;
+    margin: 0px;
+    gap: 12px;
+  }
+  .lang button {
+    font-size: 18px;
+    padding: 10px 8px;
+  }
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+}
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+  header.site.open .hright {
+    animation: menu-in 0.22s ease-out;
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+    }
   }
 }
 footer.site {

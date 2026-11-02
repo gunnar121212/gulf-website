@@ -18,6 +18,7 @@
   var menuBtn = header.querySelector(".menu-btn");
   function setMenu(open) {
     header.classList.toggle("open", open);
+    document.body.classList.toggle("menu-open", open);
     menuBtn.setAttribute("aria-expanded", String(open));
   }
   menuBtn.addEventListener("click", function () {
