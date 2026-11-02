@@ -912,3 +912,15 @@ body.home footer.site {
 .cb-head .v1more{grid-area:1/2}
 .cb-body{padding-left:0}
 }
+
+/* About: GULF first, then Gunnar */
+.about-lead{font-size:clamp(20px,2.2vw,23px);line-height:1.5;max-width:34em;margin:0 0 56px}
+.person{grid-template-columns:minmax(0,260px) minmax(0,1fr);grid-template-areas:"photo name" "photo bio";column-gap:48px;row-gap:0;border-top:1px solid var(--stone2);padding-top:40px}
+.person .name{grid-area:name;font-size:28px;margin:0 0 14px;line-height:1.2}
+.person .portrait{grid-area:photo}
+.person .bio{grid-area:bio}
+@media (max-width:760px){
+.about-lead{margin-bottom:40px}
+.person{grid-template-columns:minmax(0,1fr);grid-template-areas:"name" "photo" "bio";padding-top:32px}
+.person .portrait{max-width:240px;margin:4px 0 24px}
+}
