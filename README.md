@@ -3,19 +3,21 @@
 Website for GULF ráðgjöf, the consultancy of Gunnar Úlfarsson.
 
 A static site: plain HTML, CSS and JavaScript, with no build step and no
-dependencies. Every push to `main` is deployed to https://gulf.is by
-Cloudflare Pages.
+dependencies. Every push to `main` is deployed by Cloudflare Workers
+(static assets), configured in `wrangler.jsonc`.
 
 ## Structure
 
 ```
-index.html              All four pages (home, about, cases, contact)
-assets/css/site.css     Styles
-assets/js/site.js       Page switching and the IS/EN language switch
-assets/img/             Logo, hero photo, share image, client logos
-favicon.svg
-robots.txt, sitemap.xml
-_headers                Cache and security headers for Cloudflare Pages
+wrangler.jsonc                 Cloudflare Worker config: serves ./public
+public/
+  index.html                   All four pages (home, about, cases, contact)
+  assets/css/site.css          Styles
+  assets/js/site.js            Page switching and the IS/EN language switch
+  assets/img/                  Logo, hero photo, share image, client logos
+  favicon.svg
+  robots.txt, sitemap.xml
+  _headers                     Cache, security and noindex headers
 ```
 
 ## How it works
@@ -32,24 +34,24 @@ _headers                Cache and security headers for Cloudflare Pages
 
 ## Editing
 
-Edit the files and open `index.html` through a local server so the
+Edit the files in `public/` and preview them through a local server so the
 `/assets/...` paths resolve:
 
 ```
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory public
 # then open http://localhost:8000
 ```
+
+`npx wrangler dev` also works and applies `_headers` the way Cloudflare does.
 
 When adding text, add both the Icelandic and the English span.
 
 ## Deploying
 
-Cloudflare Pages is connected to this repository:
+The `gulf-website` Worker in Cloudflare is connected to this repository
+(Workers Builds), with no build command and the default deploy command
+`npx wrangler deploy`. Pushing to `main` publishes the site. Other branches
+are uploaded as preview versions with their own workers.dev URL.
 
-- Framework preset: None
-- Build command: (empty)
-- Build output directory: `/`
-- Production branch: `main`
-
-Pushing to `main` publishes the site. Other branches get their own preview
-URL, which is useful for checking a change before merging it.
+`public/_headers` sends `X-Robots-Tag: noindex` on test.gulf.is, so the test
+domain stays out of search engines.

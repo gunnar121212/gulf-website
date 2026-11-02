@@ -1,5 +1,5 @@
-# Cloudflare Pages response headers
-# https://developers.cloudflare.com/pages/configuration/headers/
+# Response headers for Cloudflare static assets
+# https://developers.cloudflare.com/workers/static-assets/headers/
 
 /*
   X-Content-Type-Options: nosniff
@@ -15,9 +15,6 @@
 /assets/*
   Cache-Control: public, max-age=86400
 
-# The test site and Cloudflare preview URLs are kept out of search engines
+# The test site is kept out of search engines
 https://test.gulf.is/*
-  X-Robots-Tag: noindex, nofollow
-
-https://:project.pages.dev/*
   X-Robots-Tag: noindex, nofollow
