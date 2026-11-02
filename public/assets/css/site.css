@@ -922,3 +922,21 @@ body.home footer.site {
 .person{grid-template-columns:minmax(0,1fr);grid-template-areas:"name" "photo" "bio";padding-top:32px}
 .person .portrait{max-width:240px;margin:4px 0 24px}
 }
+
+/* No bounce or sideways drift on phones, dark under the home hero */
+html {
+  overscroll-behavior-y: none;
+}
+html,
+body {
+  overflow-x: clip;
+}
+html:has(body.home),
+body.home {
+  background: var(--ink);
+}
+@media (max-width: 760px) {
+  .sec .wrap {
+    padding-block: 44px 36px;
+  }
+}
