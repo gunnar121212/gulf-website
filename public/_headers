@@ -11,8 +11,15 @@
 /
   Cache-Control: public, max-age=0, must-revalidate
 
-# CSS, JS and images are cached for a day
-/assets/*
+# CSS and JS are revalidated so edits show up straight away
+/assets/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Images are cached for a day
+/assets/img/*
   Cache-Control: public, max-age=86400
 
 # The test site is kept out of search engines
