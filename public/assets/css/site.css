@@ -824,15 +824,15 @@ header.site .mark img {
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-start;
-    padding: 104px max(20px, env(safe-area-inset-right, 0px))
+    padding: 112px max(42px, calc(env(safe-area-inset-right, 0px) + 22px))
       max(32px, env(safe-area-inset-bottom, 0px));
     background: var(--white);
   }
   nav.main {
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
-    font-size: 32px;
+    gap: 4px;
+    font-size: 28px;
     line-height: 1.3;
   }
   nav.main a,
