@@ -14,6 +14,23 @@
     document.body.classList.toggle("home", h === "home");
     window.scrollTo(0, 0);
   }
+  var header = document.querySelector("header.site");
+  var menuBtn = header.querySelector(".menu-btn");
+  function setMenu(open) {
+    header.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+  }
+  menuBtn.addEventListener("click", function () {
+    setMenu(!header.classList.contains("open"));
+  });
+  document.addEventListener("click", function (e) {
+    if (!header.contains(e.target) || e.target.closest("nav.main a"))
+      setMenu(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") setMenu(false);
+  });
+
   window.addEventListener("hashchange", show);
   show();
 

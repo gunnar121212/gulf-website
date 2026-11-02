@@ -749,41 +749,86 @@ header.site .mark img {
   align-items: center;
   gap: 12px 34px;
 }
+.menu-btn {
+  display: none;
+}
 @media (max-width: 640px) {
+  header.site {
+    position: relative;
+  }
   header.site .wrap {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "mark lang" "nav nav";
-    gap: 14px 12px;
-    padding-block: 16px 12px;
-  }
-  .hright {
-    display: contents;
-  }
-  header.site .mark {
-    grid-area: mark;
+    flex-wrap: nowrap;
+    padding-block: 12px;
   }
   header.site .mark img {
     height: 22px;
   }
+  .hright {
+    gap: 4px;
+  }
   .lang {
-    grid-area: lang;
     margin-left: 0px;
   }
+  .menu-btn {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    margin-right: -10px;
+    padding: 0px;
+    background: none;
+    border: 0px;
+    color: inherit;
+    cursor: pointer;
+  }
+  .menu-btn i {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentcolor;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  header.site.open .menu-btn i:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  header.site.open .menu-btn i:nth-child(2) {
+    opacity: 0;
+  }
+  header.site.open .menu-btn i:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
   nav.main {
-    grid-area: nav;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 0px 10px;
-    font-size: clamp(13.5px, 4vw, 15.5px);
-    overflow-x: auto;
-    scrollbar-width: none;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    right: 0px;
+    z-index: 10;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0px;
+    padding: 6px max(20px, env(safe-area-inset-right, 0px)) 14px;
+    background: var(--white);
+    color: var(--ink);
+    border-bottom: 1px solid var(--stone2);
+    box-shadow: rgba(16, 12, 8, 0.08) 0px 12px 24px;
+    font-size: 20px;
+  }
+  header.site.open nav.main {
+    display: flex;
   }
   nav.main a {
+    padding: 10px 0px 8px;
     white-space: nowrap;
   }
-  #p-home .hero.solo > .wrap:not(.clients-in) {
-    padding-top: 118px;
+  body.home nav.main a[aria-current="page"] {
+    border-bottom-color: var(--ink);
+  }
+  body.home nav.main a:hover {
+    border-bottom-color: var(--stone5);
   }
 }
 footer.site {
@@ -797,4 +842,12 @@ footer.site .wrap {
 }
 body.home footer.site {
   display: none;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
