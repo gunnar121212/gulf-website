@@ -1,0 +1,20 @@
+# Response headers for Cloudflare static assets
+# https://developers.cloudflare.com/workers/static-assets/headers/
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# HTML is always revalidated so edits show up straight away
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# CSS, JS and images are cached for a day
+/assets/*
+  Cache-Control: public, max-age=86400
+
+# The test site is kept out of search engines
+https://test.gulf.is/*
+  X-Robots-Tag: noindex, nofollow
