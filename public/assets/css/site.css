@@ -940,3 +940,10 @@ body.home {
     padding-block: 44px 36px;
   }
 }
+
+/* Desktop: no Forsíða link while on the home page (phones keep it in the menu) */
+@media (min-width: 641px) {
+  body.home nav.main a[href="#home"] {
+    display: none;
+  }
+}
