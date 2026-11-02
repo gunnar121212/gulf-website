@@ -138,6 +138,13 @@ nav.main a:hover {
   text-align: center;
   padding: 20px;
 }
+img.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0px;
+  object-fit: cover;
+}
 .cv {
   list-style: none;
   padding: 0px;
@@ -408,7 +415,7 @@ body > main {
   font-family: var(--display);
   font-weight: 600;
   font-size: 26px;
-  margin: 0px;
+  margin: 0px 0px 14px;
 }
 .person .role {
   color: var(--stone7);
