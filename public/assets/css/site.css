@@ -822,14 +822,15 @@ header.site .mark img {
     inset: 0px;
     z-index: -1;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-start;
-    padding: 112px 20px max(32px, env(safe-area-inset-bottom, 0px));
+    padding: 104px max(20px, env(safe-area-inset-right, 0px))
+      max(32px, env(safe-area-inset-bottom, 0px));
     background: var(--white);
   }
   nav.main {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     gap: 6px;
     font-size: 32px;
     line-height: 1.3;
@@ -839,12 +840,12 @@ header.site .mark img {
   body.home nav.main a[aria-current="page"],
   nav.main a:hover,
   body.home nav.main a:hover {
-    padding: 4px 8px;
+    padding: 4px 0px;
     border-bottom: 0px;
   }
   .lang {
-    justify-content: center;
-    margin: 28px 0px 0px;
+    justify-content: flex-end;
+    margin: 28px -8px 0px 0px;
     gap: 12px;
   }
   .lang button {
