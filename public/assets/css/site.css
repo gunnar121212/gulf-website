@@ -488,7 +488,8 @@ body > main {
   #p-home .hero.solo .wrap.clients-in {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
+    padding-top: 10px;
   }
 }
 .clients {
