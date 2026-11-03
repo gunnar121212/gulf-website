@@ -67,6 +67,7 @@
       var on = !el.classList.contains("on");
       zs.forEach(function (o) { if (o !== el) zoom(o, false); });
       zoom(el, on);
+      if (on && window.matchMedia("(max-width:640px),(hover:none)").matches) el.scrollIntoView({ block: "center", behavior: "smooth" });
     });
     el.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.click(); }

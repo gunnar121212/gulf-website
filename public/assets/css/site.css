@@ -962,7 +962,6 @@ body.home {
 }
 @media (max-width:640px),(hover:none){
   .cimgs{grid-template-columns:minmax(0,1fr);gap:12px}
-  .cz.on{overflow-x:auto;overscroll-behavior-x:contain;cursor:zoom-out}
-  .cz.on img,.cz.on video{width:250%;max-width:none}
-  .cz.on::after{display:none}
+  .cz.on{aspect-ratio:9/16;overflow:hidden;cursor:zoom-out}
+  .cz.on img,.cz.on video{position:absolute;top:50%;left:50%;width:177.78%;max-width:none;transform:translate(-50%,-50%) rotate(90deg)}
 }
