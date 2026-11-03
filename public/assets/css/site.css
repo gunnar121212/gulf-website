@@ -962,14 +962,9 @@ body.home {
   .cz.on{cursor:zoom-out}
 }
 @media (max-width:640px),(hover:none){
-  .cimgs{gap:8px}
-  .cz::after{width:16px;height:16px;font-size:12px;line-height:16px;right:4px;bottom:4px}
-  .cwrap.car .cimgs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;width:100vw;margin-inline:calc(50% - 50vw);padding-inline:7vw;scroll-padding-inline:7vw;box-sizing:border-box}
-  .cwrap.car .cimgs::-webkit-scrollbar{display:none}
-  .cwrap.car .cz{flex:0 0 86vw;scroll-snap-align:center;cursor:zoom-out}
-  .cwrap.car .cz.on::after{content:"\2212";width:22px;height:22px;font-size:16px;line-height:22px;right:6px;bottom:6px}
-  .cwrap.car .cz:not(.on)::after{display:none}
-  .cwrap.car .carr{display:flex}
-  .carr{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border:0;border-radius:50%;background:rgba(16,12,8,.78);color:#fff;font:400 26px/1 sans-serif;align-items:center;justify-content:center;padding:0 0 3px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .carr.prev{left:calc(50% - 50vw + 10px)}.carr.next{right:calc(50% - 50vw + 10px)}
+  .cimgs{grid-template-columns:minmax(0,1fr);gap:12px}
+  .cz.on{width:100vw;margin-inline:calc(50% - 50vw);border-inline-width:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;cursor:zoom-out}
+  .cz.on::-webkit-scrollbar{display:none}
+  .cz.on img{width:133.34%;max-width:none}
+  .cz.on::after{display:none}
 }

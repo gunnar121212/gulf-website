@@ -103,7 +103,10 @@
       if (moved) return;
       var box = el.closest(".cimgs");
       if (mq.matches) {
-        carousel(box, el.closest(".car") ? null : el);
+        var open = !el.classList.contains("on");
+        zs.forEach(function (o) { zoom(o, false); });
+        zoom(el, open);
+        if (open) el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
         return;
       }
       var on = !el.classList.contains("on");
