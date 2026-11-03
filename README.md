@@ -55,3 +55,5 @@ are uploaded as preview versions with their own workers.dev URL.
 
 `public/_headers` sends `X-Robots-Tag: noindex` on test.gulf.is, so the test
 domain stays out of search engines.
+
+Hero photo: Hraundrangi above Hraun in Öxnadalur, by Freysteinn G. Jonsson on Unsplash (Unsplash License), cropped and colour-adjusted: https://unsplash.com/photos/CaWUHJASMBs
