@@ -58,15 +58,42 @@
     el.classList.toggle("on", on);
     el.setAttribute("aria-pressed", on ? "true" : "false");
   }
+  function arrows(box) {
+    var w = box.closest(".cwrap"); if (!w) return;
+    var open = w.classList.contains("car");
+    var p = w.querySelector(".carr.prev"), n = w.querySelector(".carr.next");
+    if (p) p.hidden = !open || box.scrollLeft < 8;
+    if (n) n.hidden = !open || box.scrollLeft > box.scrollWidth - box.clientWidth - 8;
+  }
   function carousel(box, el) {
-    var open = !!el;
-    box.classList.toggle("car", open);
+    var open = !!el, w = box.closest(".cwrap") || box;
+    w.classList.toggle("car", open);
     box.querySelectorAll(".cz").forEach(function (o) { zoom(o, open && o === el); });
     if (open) box.scrollLeft = el.offsetLeft - (box.clientWidth - el.offsetWidth) / 2;
+    arrows(box);
   }
+  document.querySelectorAll(".cwrap").forEach(function (w) {
+    var box = w.querySelector(".cimgs");
+    box.addEventListener("scroll", function () {
+      arrows(box);
+      var mid = box.scrollLeft + box.clientWidth / 2, best = null, d = 1e9;
+      box.querySelectorAll(".cz").forEach(function (o) {
+        var c = o.offsetLeft + o.offsetWidth / 2;
+        if (Math.abs(c - mid) < d) { d = Math.abs(c - mid); best = o; }
+      });
+      box.querySelectorAll(".cz").forEach(function (o) { zoom(o, o === best); });
+    }, { passive: true });
+    w.querySelectorAll(".carr").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var step = box.querySelector(".cz").offsetWidth + 10;
+        box.scrollBy({ left: btn.classList.contains("next") ? step : -step, behavior: "smooth" });
+      });
+    });
+  });
   function closeAll() {
     zs.forEach(function (o) { zoom(o, false); });
-    document.querySelectorAll(".cimgs.car").forEach(function (b) { carousel(b, null); });
+    document.querySelectorAll(".cwrap.car .cimgs").forEach(function (b) { carousel(b, null); });
   }
   zs.forEach(function (el) {
     var sx = 0, moved = false;
@@ -76,7 +103,7 @@
       if (moved) return;
       var box = el.closest(".cimgs");
       if (mq.matches) {
-        carousel(box, box.classList.contains("car") ? null : el);
+        carousel(box, el.closest(".car") ? null : el);
         return;
       }
       var on = !el.classList.contains("on");
@@ -88,7 +115,7 @@
     });
   });
   document.addEventListener("click", function (e) {
-    if (!e.target.closest(".cz")) closeAll();
+    if (!e.target.closest(".cz") && !e.target.closest(".carr")) closeAll();
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closeAll();

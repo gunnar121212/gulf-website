@@ -944,7 +944,11 @@ body.home {
     display: none;
   }
 }
-.cimgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 22px;position:relative}
+.cwrap{position:relative;margin:10px 0 14px;min-width:0}
+.qar>div,.qar dd{min-width:0}
+.carr{display:none}
+.carr[hidden]{display:none!important}
+.cimgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0;position:relative}
 .cz{position:relative;display:block;border:.5px solid var(--stone2);background:#fff;line-height:0;cursor:zoom-in;transition:transform .25s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent}
 .cz img,.cz video{display:block;width:100%;height:auto}
 .cz::after{content:"+";position:absolute;right:6px;bottom:6px;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font:400 14px/18px sans-serif;text-align:center;opacity:.85;pointer-events:none}
@@ -960,8 +964,12 @@ body.home {
 @media (max-width:640px),(hover:none){
   .cimgs{gap:8px}
   .cz::after{width:16px;height:16px;font-size:12px;line-height:16px;right:4px;bottom:4px}
-  .cimgs.car{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;margin-inline:-4px;padding-inline:4px}
-  .cimgs.car::-webkit-scrollbar{display:none}
-  .cimgs.car .cz{flex:0 0 86%;scroll-snap-align:center;cursor:zoom-out}
-  .cimgs.car .cz::after{content:"\2212";width:22px;height:22px;font-size:16px;line-height:22px;right:6px;bottom:6px}
+  .cwrap.car .cimgs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;width:100vw;margin-inline:calc(50% - 50vw);padding-inline:7vw;scroll-padding-inline:7vw;box-sizing:border-box}
+  .cwrap.car .cimgs::-webkit-scrollbar{display:none}
+  .cwrap.car .cz{flex:0 0 86vw;scroll-snap-align:center;cursor:zoom-out}
+  .cwrap.car .cz.on::after{content:"\2212";width:22px;height:22px;font-size:16px;line-height:22px;right:6px;bottom:6px}
+  .cwrap.car .cz:not(.on)::after{display:none}
+  .cwrap.car .carr{display:flex}
+  .carr{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border:0;border-radius:50%;background:rgba(16,12,8,.78);color:#fff;font:400 26px/1 sans-serif;align-items:center;justify-content:center;padding:0 0 3px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .carr.prev{left:calc(50% - 50vw + 10px)}.carr.next{right:calc(50% - 50vw + 10px)}
 }
