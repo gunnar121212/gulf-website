@@ -367,7 +367,7 @@ body > main {
   position: relative;
   overflow: hidden;
   color: rgb(255, 255, 255);
-  background: url("../img/hero.jpg") center 78% / cover no-repeat rgb(16, 12, 8);
+  background: url("../img/hero-hraun.jpg") 72% 28% / cover no-repeat rgb(16, 12, 8);
 }
 .hero.solo::before {
   content: "";
