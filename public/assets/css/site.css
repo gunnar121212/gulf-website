@@ -949,7 +949,7 @@ body.home {
 }
 .cimgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 22px;position:relative}
 .cz{position:relative;display:block;border:.5px solid var(--stone2);background:#fff;line-height:0;cursor:zoom-in;transition:transform .25s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent}
-.cz img,.cz video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.cz img,.cz video{display:block;width:100%;height:auto}
 .cz::after{content:"+";position:absolute;right:6px;bottom:6px;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font:400 14px/18px sans-serif;text-align:center;opacity:.85;pointer-events:none}
 .cz.on::after{content:"\2212"}
 .cz:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
