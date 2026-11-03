@@ -53,10 +53,20 @@
   });
   setLang(document.documentElement.lang, false);
   var zs = document.querySelectorAll(".cz");
+  var mq = window.matchMedia("(max-width:640px),(hover:none)");
   function zoom(el, on) {
     el.classList.toggle("on", on);
     el.setAttribute("aria-pressed", on ? "true" : "false");
-    if (!on) el.scrollLeft = 0;
+  }
+  function carousel(box, el) {
+    var open = !!el;
+    box.classList.toggle("car", open);
+    box.querySelectorAll(".cz").forEach(function (o) { zoom(o, open && o === el); });
+    if (open) box.scrollLeft = el.offsetLeft - (box.clientWidth - el.offsetWidth) / 2;
+  }
+  function closeAll() {
+    zs.forEach(function (o) { zoom(o, false); });
+    document.querySelectorAll(".cimgs.car").forEach(function (b) { carousel(b, null); });
   }
   zs.forEach(function (el) {
     var sx = 0, moved = false;
@@ -64,19 +74,23 @@
     el.addEventListener("pointermove", function (e) { if (Math.abs(e.clientX - sx) > 8) moved = true; });
     el.addEventListener("click", function () {
       if (moved) return;
+      var box = el.closest(".cimgs");
+      if (mq.matches) {
+        carousel(box, box.classList.contains("car") ? null : el);
+        return;
+      }
       var on = !el.classList.contains("on");
       zs.forEach(function (o) { if (o !== el) zoom(o, false); });
       zoom(el, on);
-      if (on && window.matchMedia("(max-width:640px),(hover:none)").matches) el.scrollIntoView({ block: "center", behavior: "smooth" });
     });
     el.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.click(); }
     });
   });
   document.addEventListener("click", function (e) {
-    if (!e.target.closest(".cz")) zs.forEach(function (o) { zoom(o, false); });
+    if (!e.target.closest(".cz")) closeAll();
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") zs.forEach(function (o) { zoom(o, false); });
+    if (e.key === "Escape") closeAll();
   });
 })();
