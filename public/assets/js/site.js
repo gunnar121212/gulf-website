@@ -52,4 +52,30 @@
     });
   });
   setLang(document.documentElement.lang, false);
+  var zs = document.querySelectorAll(".cz");
+  function zoom(el, on) {
+    el.classList.toggle("on", on);
+    el.setAttribute("aria-pressed", on ? "true" : "false");
+    if (!on) el.scrollLeft = 0;
+  }
+  zs.forEach(function (el) {
+    var sx = 0, moved = false;
+    el.addEventListener("pointerdown", function (e) { sx = e.clientX; moved = false; });
+    el.addEventListener("pointermove", function (e) { if (Math.abs(e.clientX - sx) > 8) moved = true; });
+    el.addEventListener("click", function () {
+      if (moved) return;
+      var on = !el.classList.contains("on");
+      zs.forEach(function (o) { if (o !== el) zoom(o, false); });
+      zoom(el, on);
+    });
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.click(); }
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".cz")) zs.forEach(function (o) { zoom(o, false); });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") zs.forEach(function (o) { zoom(o, false); });
+  });
 })();
