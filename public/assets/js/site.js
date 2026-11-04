@@ -35,23 +35,13 @@
   window.addEventListener("hashchange", show);
   show();
 
-  function setLang(l, save) {
-    document.documentElement.lang = l;
-    document.querySelectorAll(".lang button").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.dataset.set === l));
-    });
-    if (save) {
-      try {
-        localStorage.setItem("gulf-lang", l);
-      } catch (e) {}
-    }
-  }
-  document.querySelectorAll(".lang button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      setLang(b.dataset.set, true);
+  // Language links keep the current page (#about etc.) and remember the choice
+  document.querySelectorAll(".lang a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      try { localStorage.setItem("gulf-lang", a.dataset.set); } catch (e) {}
+      a.href = a.getAttribute("href").split("#")[0] + location.hash;
     });
   });
-  setLang(document.documentElement.lang, false);
   var zs = document.querySelectorAll(".cz");
   var mq = window.matchMedia("(max-width:640px),(hover:none)");
   function zoom(el, on) {

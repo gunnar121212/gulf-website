@@ -11,6 +11,9 @@
 /
   Cache-Control: public, max-age=0, must-revalidate
 
+/en/
+  Cache-Control: public, max-age=0, must-revalidate
+
 # CSS and JS are revalidated so edits show up straight away
 /assets/css/*
   Cache-Control: public, max-age=0, must-revalidate

@@ -674,7 +674,7 @@ html[lang="is"] [data-l="en"] {
   margin-left: 6px;
   align-items: center;
 }
-.lang button {
+.lang a {
   font-style: inherit;
   font-variant: inherit;
   font-weight: inherit;
@@ -695,12 +695,12 @@ html[lang="is"] [data-l="en"] {
   padding: 2px 5px;
   cursor: pointer;
 }
-.lang button[aria-pressed="true"] {
+.lang a[aria-current="true"] {
   opacity: 1;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.lang button:hover {
+.lang a:hover {
   opacity: 1;
 }
 .hero.solo h1.wm {
@@ -848,7 +848,7 @@ header.site .mark img {
     margin: 28px -8px 0px 0px;
     gap: 12px;
   }
-  .lang button {
+  .lang a {
     font-size: 18px;
     padding: 10px 8px;
   }
@@ -980,3 +980,5 @@ body.home {
 .row-val a{display:block;width:max-content;font-family:var(--display);font-size:clamp(22px,2.4vw,28px);line-height:1.4;text-decoration:none}
 @media (hover:hover){.row-val a:hover{color:var(--rust)}}
 @media (max-width:860px){.row{grid-template-columns:minmax(0,1fr);gap:8px}.row-side .portrait{width:170px}}
+.lang a{text-decoration:none;display:inline-block}
+.lang a[aria-current="true"]{text-decoration:underline}

@@ -2,18 +2,23 @@
 
 Website for GULF ráðgjöf, the consultancy of Gunnar Úlfarsson.
 
-A static site: plain HTML, CSS and JavaScript, with no build step and no
-dependencies. Every push to `main` is deployed by Cloudflare Workers
+A static site: plain HTML, CSS and JavaScript with no dependencies. One
+small build script turns the bilingual source into an Icelandic and an
+English page. Every push to `main` is deployed by Cloudflare Workers
 (static assets), configured in `wrangler.jsonc`.
 
 ## Structure
 
 ```
 wrangler.jsonc                 Cloudflare Worker config: serves ./public
+build.mjs                      Builds public/index.html and public/en/index.html
+src/
+  index.html                   Bilingual source for all four pages
 public/
-  index.html                   All four pages (home, about, cases, contact)
+  index.html                   Icelandic site at /      (generated, do not edit)
+  en/index.html                English site at /en/     (generated, do not edit)
   assets/css/site.css          Styles
-  assets/js/site.js            Page switching and the IS/EN language switch
+  assets/js/site.js            Page switching, menu, slide zoom
   assets/img/                  Logo, hero photo, share image, client logos
   favicon.svg
   robots.txt, sitemap.xml
@@ -24,17 +29,19 @@ public/
 
 - **Pages.** The four pages are sections of `index.html`, shown one at a
   time by the URL hash: `#home`, `#about`, `#cases`, `#contact`.
-- **Languages.** Every piece of text is written twice, as
-  `<span data-l="en">…</span><span data-l="is">…</span>`. The `lang`
-  attribute on `<html>` decides which one shows. A small script in `<head>`
-  picks the language before the page is drawn: `?lang=is|en` in the URL,
-  then the visitor's earlier choice, then an Icelandic timezone or browser
-  language, otherwise English.
+- **Languages.** Text is written twice in `src/index.html`, as
+  `<span data-l="en">…</span><span data-l="is">…</span>`. `node build.mjs`
+  writes the Icelandic page to `public/index.html` (gulf.is) and the English
+  page to `public/en/index.html` (gulf.is/en/), each with its own title,
+  description, canonical and hreflang links. IS/EN are plain links that keep
+  the current section. A visitor who chose English is sent to /en/ on later
+  visits to the front page.
 - **Fonts.** Fraunces (headings) and Source Serif 4 (text), from Google Fonts.
 
 ## Editing
 
-Edit the files in `public/` and preview them through a local server so the
+Edit `src/index.html` (text) or `public/assets/` (styles, scripts, images),
+run `node build.mjs`, commit both the source and the generated pages, and preview them through a local server so the
 `/assets/...` paths resolve:
 
 ```
