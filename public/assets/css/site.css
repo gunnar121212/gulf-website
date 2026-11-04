@@ -970,3 +970,6 @@ body.home {
 }
 .lang a{text-decoration:none;display:inline-block}
 .lang a[aria-current="true"]{text-decoration:underline}
+#s-contact .wrap>div{min-height:55vh;display:flex;align-items:center;justify-content:center;text-align:center}
+#s-contact .clist dd{align-items:center}
+#s-contact .clist dd a{align-self:center}
