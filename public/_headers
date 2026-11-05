@@ -24,7 +24,3 @@
 # Images are cached for a day
 /assets/img/*
   Cache-Control: public, max-age=86400
-
-# The test site is kept out of search engines
-https://test.gulf.is/*
-  X-Robots-Tag: noindex, nofollow

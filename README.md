@@ -60,8 +60,8 @@ The `gulf-website` Worker in Cloudflare is connected to this repository
 `npx wrangler deploy`. Pushing to `main` publishes the site. Other branches
 are uploaded as preview versions with their own workers.dev URL.
 
-`public/_headers` sends `X-Robots-Tag: noindex` on test.gulf.is, so the test
-domain stays out of search engines.
+Search engines may index the site. Canonical links and the sitemap point to
+gulf.is, so test.gulf.is is treated as a copy of gulf.is.
 
 When gulf.is points at this Worker, set `IMG_HOST` in `build.mjs` to `SITE`
 and run `node build.mjs`, so link previews load the share image from gulf.is.
