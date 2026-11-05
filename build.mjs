@@ -15,7 +15,7 @@ const META = {
     locale: "is_IS",
     title: "GULF ráðgjöf | Gunnar Úlfarsson, hagfræðingur og ráðgjafi",
     description:
-      "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar hagfræðings, fyrrum aðalhagfræðings Viðskiptaráðs. Efnahagsgreiningar, stefnumótun og ráðgjöf.",
+      "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar, fyrrum hagfræðings og aðstoðarframkvæmdastjóra Viðskiptaráðs. Efnahagsgreiningar og stefnumótun.",
     ogDescription:
       "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
   },
@@ -24,7 +24,7 @@ const META = {
     locale: "en_GB",
     title: "GULF ráðgjöf | Gunnar Úlfarsson, economist and consultant",
     description:
-      "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist of the Iceland Chamber of Commerce. Economic analysis and strategy.",
+      "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist and deputy director of the Iceland Chamber of Commerce.",
     ogDescription: "Independent economic and strategy consulting.",
   },
 };
