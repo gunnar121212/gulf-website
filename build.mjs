@@ -14,7 +14,7 @@ const META = {
     description:
       "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar hagfræðings, fyrrum aðalhagfræðings Viðskiptaráðs. Efnahagsgreiningar, stefnumótun og stuðningur við ákvarðanir.",
     ogDescription:
-      "Sjálfstæð greining og ráðgjöf sem styður við stefnumótun og ákvarðanatöku.",
+      "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
   },
   en: {
     path: "/en/",
