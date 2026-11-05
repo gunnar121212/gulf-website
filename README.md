@@ -63,4 +63,7 @@ are uploaded as preview versions with their own workers.dev URL.
 `public/_headers` sends `X-Robots-Tag: noindex` on test.gulf.is, so the test
 domain stays out of search engines.
 
+When gulf.is points at this Worker, set `IMG_HOST` in `build.mjs` to `SITE`
+and run `node build.mjs`, so link previews load the share image from gulf.is.
+
 Hero photo: Hraundrangi above Hraun in Öxnadalur, by Freysteinn G. Jonsson on Unsplash (Unsplash License), cropped and colour-adjusted: https://unsplash.com/photos/CaWUHJASMBs

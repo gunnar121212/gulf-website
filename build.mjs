@@ -4,6 +4,9 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const SITE = "https://gulf.is";
+// Host for the share image. gulf.is does not serve this site yet, so link
+// cards fetch the image from the test host. Set to SITE at launch.
+const IMG_HOST = "https://test.gulf.is";
 const src = readFileSync(new URL("./src/index.html", import.meta.url), "utf8");
 
 const META = {
@@ -12,7 +15,7 @@ const META = {
     locale: "is_IS",
     title: "GULF ráðgjöf | Gunnar Úlfarsson, hagfræðingur og ráðgjafi",
     description:
-      "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar hagfræðings, fyrrum aðalhagfræðings Viðskiptaráðs. Efnahagsgreiningar, stefnumótun og stuðningur við ákvarðanir.",
+      "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar hagfræðings, fyrrum aðalhagfræðings Viðskiptaráðs. Efnahagsgreiningar, stefnumótun og ráðgjöf.",
     ogDescription:
       "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
   },
@@ -21,7 +24,7 @@ const META = {
     locale: "en_GB",
     title: "GULF ráðgjöf | Gunnar Úlfarsson, economist and consultant",
     description:
-      "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist of the Iceland Chamber of Commerce. Economic analysis, strategy and decision support.",
+      "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist of the Iceland Chamber of Commerce. Economic analysis and strategy.",
     ogDescription: "Independent economic and strategy consulting.",
   },
 };
@@ -58,6 +61,21 @@ function build(lang) {
   h = h.replace(/<title>[\s\S]*?<\/title>\n<meta name="description"[^>]*>\n<link rel="canonical"[^>]*>/, head);
   h = h.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${m.ogDescription}">`);
   h = h.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${SITE}${m.path}">\n<meta property="og:locale" content="${m.locale}">`);
+  const img = `${IMG_HOST}/assets/img/og-image.jpg`;
+  h = h.replace(
+    /<meta property="og:image"[^>]*>\n<meta name="twitter:card"[^>]*>/,
+    [
+      `<meta property="og:site_name" content="GULF ráðgjöf">`,
+      `<meta property="og:image" content="${img}">`,
+      `<meta property="og:image:width" content="1200">`,
+      `<meta property="og:image:height" content="630">`,
+      `<meta property="og:image:alt" content="GULF ráðgjöf">`,
+      `<meta name="twitter:card" content="summary_large_image">`,
+      `<meta name="twitter:title" content="GULF ráðgjöf">`,
+      `<meta name="twitter:description" content="${m.ogDescription}">`,
+      `<meta name="twitter:image" content="${img}">`,
+    ].join("\n"),
+  );
 
   // Mark the current language link
   h = h.replace(`data-set="${lang}">`, `data-set="${lang}" aria-current="true">`);
