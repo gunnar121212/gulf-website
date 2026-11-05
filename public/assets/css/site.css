@@ -979,10 +979,10 @@ body.home {
 .cz.on::after{content:"\2212"}
 .cz:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
 @media (hover:hover) and (min-width:641px){
-  .cz:nth-child(1){transform-origin:0 50%}.cz:nth-child(2){transform-origin:50% 50%}.cz:nth-child(3){transform-origin:100% 50%}
-  .cz:hover,.cz.on{transform:scale(3);z-index:5;box-shadow:0 12px 40px rgba(16,12,8,.22);transition-delay:.12s}
-  .cz:hover,.cz.on{border-width:.2px}
-  .cz:hover::after,.cz.on::after{transform:scale(.25);transform-origin:100% 100%}
+  .cz{transform-origin:50% 50%}
+  .cz:hover,.cz.on{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--s,3));z-index:5;box-shadow:0 1px 5px rgba(16,12,8,.16);transition-delay:.12s}
+  .cz:hover,.cz.on{border-color:transparent}
+  .cz:hover::after,.cz.on::after{transform:scale(calc(1 / var(--s,3)));transform-origin:100% 100%}
   .cz.on{cursor:zoom-out}
 }
 @media (max-width:640px),(hover:none){

@@ -85,7 +85,19 @@
     zs.forEach(function (o) { zoom(o, false); });
     document.querySelectorAll(".cwrap.car .cimgs").forEach(function (b) { carousel(b, null); });
   }
+  // Desktop: zoomed slide is centred in the window and nearly fills its width
+  function fit(el) {
+    if (mq.matches || el.classList.contains("on")) return;
+    var r = el.getBoundingClientRect(), vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    var w = Math.min(1100, vw - 64), s = w / r.width, h = r.height * s;
+    var top = Math.max(84, Math.min(r.top + r.height / 2 - h / 2, vh - h - 16));
+    el.style.setProperty("--s", s.toFixed(3));
+    el.style.setProperty("--tx", (vw / 2 - (r.left + r.width / 2)).toFixed(1) + "px");
+    el.style.setProperty("--ty", (top + h / 2 - (r.top + r.height / 2)).toFixed(1) + "px");
+  }
   zs.forEach(function (el) {
+    el.addEventListener("mouseenter", function () { fit(el); });
+    el.addEventListener("focus", function () { fit(el); });
     var sx = 0, moved = false;
     el.addEventListener("pointerdown", function (e) { sx = e.clientX; moved = false; });
     el.addEventListener("pointermove", function (e) { if (Math.abs(e.clientX - sx) > 8) moved = true; });
@@ -100,6 +112,7 @@
         return;
       }
       var on = !el.classList.contains("on");
+      if (on) fit(el);
       zs.forEach(function (o) { if (o !== el) zoom(o, false); });
       zoom(el, on);
     });
