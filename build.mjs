@@ -22,7 +22,7 @@ const META = {
   en: {
     path: "/en/",
     locale: "en_GB",
-    title: "GULF ráðgjöf | Gunnar Úlfarsson, economist and consultant",
+    title: "GULF advisory | Gunnar Úlfarsson, economist and consultant",
     description:
       "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist and deputy director of the Iceland Chamber of Commerce.",
     ogDescription: "Independent economic and strategy consulting.",
