@@ -6,13 +6,14 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 const SITE = "https://gulf.is";
 // Host for the share image and other absolute image links
 const IMG_HOST = SITE;
+const LINKEDIN = "https://www.linkedin.com/in/gunnarulfars/";
 const src = readFileSync(new URL("./src/index.html", import.meta.url), "utf8");
 
 const META = {
   is: {
     path: "/",
     locale: "is_IS",
-    title: "GULF ráðgjöf | Efnahags- og stefnuráðgjöf",
+    title: "GULF ráðgjöf | Gunnar Úlfarsson hagfræðingur",
     description: "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
     orgDescription:
       "Sjálfstæð efnahagsgreining og ráðgjöf um stefnumótun fyrir fyrirtæki og opinbera aðila.",
@@ -22,7 +23,7 @@ const META = {
   en: {
     path: "/en/",
     locale: "en_GB",
-    title: "GULF advisory | Economic and strategy consulting",
+    title: "GULF advisory | Gunnar Úlfarsson, economist",
     description: "Independent economic and strategy consulting in Iceland.",
     orgDescription:
       "Independent economic analysis and strategy consulting for companies and public bodies in Iceland.",
@@ -72,6 +73,7 @@ function jsonLd(lang) {
       image: `${IMG_HOST}/assets/img/gunnar.jpg`,
       url: `${SITE}${m.path}#about`,
       email: "gunnar@gulf.is",
+      sameAs: [LINKEDIN],
       worksFor: { "@id": `${SITE}/#gulf` },
       alumniOf: [
         { "@type": "CollegeOrUniversity", name: "University of St Andrews" },
