@@ -6,5 +6,6 @@ Thumbs.db
 
 # Local tooling, if any is ever added
 node_modules/
+.wrangler/
 .env
 .env.*
