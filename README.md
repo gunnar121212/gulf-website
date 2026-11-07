@@ -10,8 +10,9 @@ English page. Every push to `main` is deployed by Cloudflare Workers
 ## Structure
 
 ```
-wrangler.jsonc                 Cloudflare Worker config: serves ./public
-build.mjs                      Builds public/index.html and public/en/index.html
+wrangler.jsonc                 Cloudflare Worker config: domains, serves ./public
+worker.js                      Redirects www.gulf.is and test.gulf.is to gulf.is
+build.mjs                      Builds both pages and public/sitemap.xml
 src/
   index.html                   Bilingual source for all four pages
 public/
@@ -19,8 +20,8 @@ public/
   en/index.html                English site at /en/     (generated, do not edit)
   assets/css/site.css          Styles
   assets/js/site.js            Page switching, menu, slide zoom
-  assets/img/                  Logo, hero photo, share image, client logos
-  favicon.svg
+  assets/img/                  Logo, hero photo, share image
+  favicon.svg, apple-touch-icon.png
   robots.txt, sitemap.xml
   _headers                     Cache, security and noindex headers
 ```
@@ -60,10 +61,14 @@ The `gulf-website` Worker in Cloudflare is connected to this repository
 `npx wrangler deploy`. Pushing to `main` publishes the site. Other branches
 are uploaded as preview versions with their own workers.dev URL.
 
-Search engines may index the site. Canonical links and the sitemap point to
-gulf.is, so test.gulf.is is treated as a copy of gulf.is.
+The Worker answers on gulf.is, www.gulf.is and test.gulf.is (custom domains in
+`wrangler.jsonc`; Cloudflare creates their DNS records and certificates).
+`worker.js` sends www and test to gulf.is with a permanent redirect, so search
+engines see one site.
 
-When gulf.is points at this Worker, set `IMG_HOST` in `build.mjs` to `SITE`
-and run `node build.mjs`, so link previews load the share image from gulf.is.
+Search engines may index the site. Each page has its own title, description,
+canonical, hreflang links, Open Graph tags and schema.org data (GULF as a
+ProfessionalService, Gunnar as its founder). `node build.mjs` also rewrites
+`public/sitemap.xml` with the build date.
 
 Hero photo: Hraundrangi above Hraun in Öxnadalur, by Freysteinn G. Jonsson on Unsplash (Unsplash License), cropped and colour-adjusted: https://unsplash.com/photos/CaWUHJASMBs

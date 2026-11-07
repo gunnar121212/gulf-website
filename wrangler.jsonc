@@ -2,7 +2,19 @@
   // Cloudflare Worker that serves the static site in ./public
   "name": "gulf-website",
   "compatibility_date": "2026-10-01",
+  // Redirects www.gulf.is and test.gulf.is to gulf.is, then serves ./public
+  "main": "./worker.js",
   "assets": {
-    "directory": "./public"
-  }
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  // Custom domains: Cloudflare creates the DNS records and certificates
+  "routes": [
+    { "pattern": "gulf.is", "custom_domain": true },
+    { "pattern": "www.gulf.is", "custom_domain": true },
+    { "pattern": "test.gulf.is", "custom_domain": true }
+  ],
+  "workers_dev": true,
+  "preview_urls": true
 }

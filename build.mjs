@@ -4,9 +4,8 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const SITE = "https://gulf.is";
-// Host for the share image. gulf.is does not serve this site yet, so link
-// cards fetch the image from the test host. Set to SITE at launch.
-const IMG_HOST = "https://test.gulf.is";
+// Host for the share image and other absolute image links
+const IMG_HOST = SITE;
 const src = readFileSync(new URL("./src/index.html", import.meta.url), "utf8");
 
 const META = {
@@ -18,6 +17,11 @@ const META = {
       "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar, fyrrum hagfræðings og aðstoðarframkvæmdastjóra Viðskiptaráðs. Efnahagsgreiningar og stefnumótun.",
     ogDescription:
       "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
+    ogTitle: "GULF ráðgjöf",
+    orgDescription:
+      "Sjálfstæð efnahagsgreining og ráðgjöf um stefnumótun fyrir fyrirtæki og opinbera aðila.",
+    jobTitle: "Hagfræðingur og ráðgjafi",
+    knowsAbout: ["Hagfræði", "Efnahagsgreiningar", "Stefnumótun", "Opinber stefnumótun", "Ráðgjöf"],
   },
   en: {
     path: "/en/",
@@ -26,6 +30,11 @@ const META = {
     description:
       "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist and deputy director of the Iceland Chamber of Commerce.",
     ogDescription: "Independent economic and strategy consulting.",
+    ogTitle: "GULF advisory",
+    orgDescription:
+      "Independent economic analysis and strategy consulting for companies and public bodies in Iceland.",
+    jobTitle: "Economist and consultant",
+    knowsAbout: ["Economics", "Economic analysis", "Strategy", "Public policy", "Consulting"],
   },
 };
 
@@ -40,6 +49,65 @@ const ATTR_EN = {
   "Fyrri glæra": "Previous slide",
   "Næsta glæra": "Next slide",
 };
+
+// Structured data (schema.org) describing GULF, Gunnar, the site and this page
+function jsonLd(lang) {
+  const m = META[lang];
+  const graph = [
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE}/#gulf`,
+      name: "GULF ráðgjöf",
+      alternateName: ["GULF", "GULF advisory"],
+      url: `${SITE}/`,
+      logo: { "@type": "ImageObject", url: `${IMG_HOST}/assets/img/logo-512.png`, width: 512, height: 512 },
+      image: `${IMG_HOST}/assets/img/og-image.jpg`,
+      description: m.orgDescription,
+      email: "gunnar@gulf.is",
+      telephone: "+3548471049",
+      address: { "@type": "PostalAddress", addressCountry: "IS" },
+      areaServed: { "@type": "Country", name: "Iceland" },
+      knowsLanguage: ["is", "en"],
+      knowsAbout: m.knowsAbout,
+      founder: { "@id": `${SITE}/#gunnar` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE}/#gunnar`,
+      name: "Gunnar Úlfarsson",
+      jobTitle: m.jobTitle,
+      image: `${IMG_HOST}/assets/img/gunnar.jpg`,
+      url: `${SITE}${m.path}#about`,
+      email: "gunnar@gulf.is",
+      worksFor: { "@id": `${SITE}/#gulf` },
+      alumniOf: [
+        { "@type": "CollegeOrUniversity", name: "University of St Andrews" },
+        { "@type": "CollegeOrUniversity", name: "University of Iceland" },
+      ],
+      knowsLanguage: ["is", "en"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: "GULF ráðgjöf",
+      inLanguage: ["is", "en"],
+      publisher: { "@id": `${SITE}/#gulf` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE}${m.path}#webpage`,
+      url: `${SITE}${m.path}`,
+      name: m.title,
+      description: m.description,
+      inLanguage: lang,
+      isPartOf: { "@id": `${SITE}/#website` },
+      about: { "@id": `${SITE}/#gulf` },
+      primaryImageOfPage: `${IMG_HOST}/assets/img/og-image.jpg`,
+    },
+  ];
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+}
 
 function build(lang) {
   const other = lang === "is" ? "en" : "is";
@@ -57,10 +125,13 @@ function build(lang) {
     `<link rel="alternate" hreflang="is" href="${SITE}/">`,
     `<link rel="alternate" hreflang="en" href="${SITE}/en/">`,
     `<link rel="alternate" hreflang="x-default" href="${SITE}/">`,
+    `<meta name="robots" content="index, follow, max-image-preview:large">`,
   ].join("\n");
   h = h.replace(/<title>[\s\S]*?<\/title>\n<meta name="description"[^>]*>\n<link rel="canonical"[^>]*>/, head);
+  h = h.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, () => jsonLd(lang));
+  h = h.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${m.ogTitle}">`);
   h = h.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${m.ogDescription}">`);
-  h = h.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${SITE}${m.path}">\n<meta property="og:locale" content="${m.locale}">`);
+  h = h.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${SITE}${m.path}">\n<meta property="og:locale" content="${m.locale}">\n<meta property="og:locale:alternate" content="${META[other].locale}">`);
   const img = `${IMG_HOST}/assets/img/og-image.jpg`;
   h = h.replace(
     /<meta property="og:image"[^>]*>\n<meta name="twitter:card"[^>]*>/,
@@ -71,7 +142,7 @@ function build(lang) {
       `<meta property="og:image:height" content="630">`,
       `<meta property="og:image:alt" content="GULF ráðgjöf">`,
       `<meta name="twitter:card" content="summary_large_image">`,
-      `<meta name="twitter:title" content="GULF ráðgjöf">`,
+      `<meta name="twitter:title" content="${m.ogTitle}">`,
       `<meta name="twitter:description" content="${m.ogDescription}">`,
       `<meta name="twitter:image" content="${img}">`,
     ].join("\n"),
@@ -95,4 +166,18 @@ function build(lang) {
 writeFileSync(new URL("./public/index.html", import.meta.url), build("is"));
 mkdirSync(new URL("./public/en/", import.meta.url), { recursive: true });
 writeFileSync(new URL("./public/en/index.html", import.meta.url), build("en"));
-console.log("Built public/index.html (is) and public/en/index.html (en)");
+
+// Sitemap with both languages linked to each other, dated by the build
+const today = new Date().toISOString().slice(0, 10);
+const alts = ["is", "en"]
+  .map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${SITE}${META[l].path}"/>`)
+  .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`)
+  .join("\n");
+const urls = ["is", "en"]
+  .map((l) => `  <url>\n    <loc>${SITE}${META[l].path}</loc>\n    <lastmod>${today}</lastmod>\n${alts}\n  </url>`)
+  .join("\n");
+writeFileSync(
+  new URL("./public/sitemap.xml", import.meta.url),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`,
+);
+console.log("Built public/index.html (is), public/en/index.html (en) and public/sitemap.xml");
