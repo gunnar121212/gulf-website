@@ -12,12 +12,8 @@ const META = {
   is: {
     path: "/",
     locale: "is_IS",
-    title: "GULF ráðgjöf | Gunnar Úlfarsson, hagfræðingur og ráðgjafi",
-    description:
-      "GULF ráðgjöf er ráðgjafarfyrirtæki Gunnars Úlfarssonar, fyrrum hagfræðings og aðstoðarframkvæmdastjóra Viðskiptaráðs. Efnahagsgreiningar og stefnumótun.",
-    ogDescription:
-      "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
-    ogTitle: "GULF ráðgjöf",
+    title: "GULF ráðgjöf | Efnahags- og stefnuráðgjöf",
+    description: "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
     orgDescription:
       "Sjálfstæð efnahagsgreining og ráðgjöf um stefnumótun fyrir fyrirtæki og opinbera aðila.",
     jobTitle: "Hagfræðingur og ráðgjafi",
@@ -26,11 +22,8 @@ const META = {
   en: {
     path: "/en/",
     locale: "en_GB",
-    title: "GULF advisory | Gunnar Úlfarsson, economist and consultant",
-    description:
-      "GULF ráðgjöf is the consultancy of economist Gunnar Úlfarsson, former chief economist and deputy director of the Iceland Chamber of Commerce.",
-    ogDescription: "Independent economic and strategy consulting.",
-    ogTitle: "GULF advisory",
+    title: "GULF advisory | Economic and strategy consulting",
+    description: "Independent economic and strategy consulting in Iceland.",
     orgDescription:
       "Independent economic analysis and strategy consulting for companies and public bodies in Iceland.",
     jobTitle: "Economist and consultant",
@@ -129,8 +122,8 @@ function build(lang) {
   ].join("\n");
   h = h.replace(/<title>[\s\S]*?<\/title>\n<meta name="description"[^>]*>\n<link rel="canonical"[^>]*>/, head);
   h = h.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, () => jsonLd(lang));
-  h = h.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${m.ogTitle}">`);
-  h = h.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${m.ogDescription}">`);
+  h = h.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${m.title}">`);
+  h = h.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${m.description}">`);
   h = h.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${SITE}${m.path}">\n<meta property="og:locale" content="${m.locale}">\n<meta property="og:locale:alternate" content="${META[other].locale}">`);
   const img = `${IMG_HOST}/assets/img/og-image.jpg`;
   h = h.replace(
@@ -142,8 +135,8 @@ function build(lang) {
       `<meta property="og:image:height" content="630">`,
       `<meta property="og:image:alt" content="GULF ráðgjöf">`,
       `<meta name="twitter:card" content="summary_large_image">`,
-      `<meta name="twitter:title" content="${m.ogTitle}">`,
-      `<meta name="twitter:description" content="${m.ogDescription}">`,
+      `<meta name="twitter:title" content="${m.title}">`,
+      `<meta name="twitter:description" content="${m.description}">`,
       `<meta name="twitter:image" content="${img}">`,
     ].join("\n"),
   );

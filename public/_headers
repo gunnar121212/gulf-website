@@ -24,3 +24,7 @@
 # Images are cached for a day
 /assets/img/*
   Cache-Control: public, max-age=86400
+
+# Browsers use HTTPS for gulf.is from the first visit on
+https://gulf.is/*
+  Strict-Transport-Security: max-age=31536000
