@@ -14,7 +14,8 @@ const META = {
     path: "/",
     locale: "is_IS",
     title: "GULF ráðgjöf | Gunnar Úlfarsson hagfræðingur",
-    description: "Sjálfstæð greining og ráðgjöf sem styður við upplýstar ákvarðanir.",
+    description:
+      "GULF ráðgjöf veitir sjálfstæða efnahagsgreiningu og ráðgjöf um stefnumótun fyrir fyrirtæki, ríki og sveitarfélög. Gunnar Úlfarsson hagfræðingur.",
     orgDescription:
       "Sjálfstæð efnahagsgreining og ráðgjöf um stefnumótun fyrir fyrirtæki og opinbera aðila.",
     jobTitle: "Hagfræðingur og ráðgjafi",
@@ -24,7 +25,8 @@ const META = {
     path: "/en/",
     locale: "en_GB",
     title: "GULF advisory | Gunnar Úlfarsson, economist",
-    description: "Independent economic and strategy consulting in Iceland.",
+    description:
+      "GULF advisory: independent economic analysis and strategy consulting for companies and public bodies in Iceland. Founded by economist Gunnar Úlfarsson.",
     orgDescription:
       "Independent economic analysis and strategy consulting for companies and public bodies in Iceland.",
     jobTitle: "Economist and consultant",
