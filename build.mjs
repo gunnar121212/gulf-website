@@ -156,6 +156,11 @@ function build(lang, test = false) {
   h = h.replace(`data-set="${lang}">`, `data-set="${lang}" aria-current="true">`);
 
   if (lang === "en") {
+    // English wordmark: GULF with ADVISORY in place of RÁÐGJÖF
+    h = h.replace(
+      'src="/assets/img/gulf-wordmark-white.svg" alt="GULF ráðgjöf"',
+      'src="/assets/img/gulf-wordmark-white-en.svg" alt="GULF advisory"',
+    );
     for (const [is, en] of Object.entries(ATTR_EN)) h = h.split(`"${is}"`).join(`"${en}"`);
   } else {
     // Visitors who picked English before are sent to the English page
