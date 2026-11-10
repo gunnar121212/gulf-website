@@ -477,6 +477,153 @@ body > main {
 #p-home .hero.solo .wrap {
   padding-block: clamp(110px, 14vw, 180px) clamp(170px, 20vw, 260px);
 }
+#p-home .hero.solo .wrap.clients-in {
+  display: flex;
+  flex-direction: row;
+  padding-block: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+@media (max-width: 600px) {
+  #p-home .hero.solo .wrap.clients-in {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 10px;
+  }
+}
+.clients {
+  position: relative;
+  z-index: 1;
+  background: rgba(16, 12, 8, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.clients-in {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-block: 16px;
+}
+.clabel {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+.track-wrap {
+  flex: 1 1 0%;
+  min-width: 0px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    rgb(0, 0, 0) 6%,
+    rgb(0, 0, 0) 94%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    rgb(0, 0, 0) 6%,
+    rgb(0, 0, 0) 94%,
+    transparent
+  );
+}
+.track {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  gap: 72px;
+  width: max-content;
+  animation: 60s linear 0s infinite normal none running roll;
+}
+.track {
+  align-items: center;
+  gap: 0px;
+}
+.track li {
+  flex: 0 0 auto;
+  background: center center / contain no-repeat;
+  margin-right: 72px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .track li {
+    margin-right: 0px;
+  }
+}
+.track li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.15s;
+}
+.track li a:hover {
+  opacity: 0.75;
+}
+.track li.lg-qair {
+  background-image: url("../img/clients/qair.svg");
+  height: 36px;
+  width: 95.2px;
+}
+.track li.lg-sfs {
+  background-image: url("../img/clients/sfs.svg");
+  height: 30px;
+  width: 148px;
+}
+.track li.lg-hugarafl {
+  background-image: url("../img/clients/hugarafl.svg");
+  height: 30px;
+  width: 180.3px;
+}
+.track li.lg-memmm {
+  background-image: url("../img/clients/memmm.svg");
+  height: 36px;
+  width: 129.5px;
+}
+.track li.lg-raudikrossinn {
+  background-image: url("../img/clients/raudikrossinn.svg");
+  height: 38px;
+  width: 173.6px;
+}
+.clients:hover .track {
+  animation-play-state: paused;
+}
+@keyframes roll {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: auto ease 0s 1 normal none running none;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 12px 32px;
+  }
+  .track li:nth-child(n + 6) {
+    display: none;
+  }
+  .track-wrap {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+@media (max-width: 600px) {
+  .clients-in {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .track-wrap {
+    width: 100%;
+  }
+}
 #p-home .hero.solo .wrap:not(.clients-in) {
   padding-block: clamp(110px, 14vw, 180px) clamp(130px, 16vw, 210px);
 }
@@ -510,6 +657,9 @@ body.home nav.main a:hover {
   align-items: center;
   width: 100%;
   padding-block: clamp(120px, 16vh, 170px) clamp(48px, 8vh, 96px);
+}
+#p-home .hero.solo .clients {
+  flex: 0 0 auto;
 }
 body.home footer.site {
   margin-top: 0px;
