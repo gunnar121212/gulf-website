@@ -106,10 +106,15 @@ function jsonLd(lang) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
-function build(lang) {
+// test: the version served on test.gulf.is. It keeps the parts marked
+// <!--test-only--> … <!--/test-only--> (such as the client logo bar), which the
+// live gulf.is pages leave out, and tells search engines not to index it.
+function build(lang, test = false) {
   const other = lang === "is" ? "en" : "is";
   const m = META[lang];
-  let h = src;
+  let h = src.replace(/\n?[ \t]*<!--test-only-->[\s\S]*?<!--\/test-only-->/g, (block) =>
+    test ? block.replace(/[ \t]*<!--\/?test-only-->\n?/g, "") : "",
+  );
 
   // Drop the other language's text (spans are never nested)
   h = h.replace(new RegExp(`<span\\b[^>]*\\bdata-l="${other}"[^>]*>[\\s\\S]*?</span>`, "g"), "");
@@ -122,7 +127,9 @@ function build(lang) {
     `<link rel="alternate" hreflang="is" href="${SITE}/">`,
     `<link rel="alternate" hreflang="en" href="${SITE}/en/">`,
     `<link rel="alternate" hreflang="x-default" href="${SITE}/">`,
-    `<meta name="robots" content="index, follow, max-image-preview:large">`,
+    test
+      ? `<meta name="robots" content="noindex, nofollow">`
+      : `<meta name="robots" content="index, follow, max-image-preview:large">`,
   ].join("\n");
   h = h.replace(/<title>[\s\S]*?<\/title>\n<meta name="description"[^>]*>\n<link rel="canonical"[^>]*>/, head);
   h = h.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, () => jsonLd(lang));
@@ -163,6 +170,10 @@ function build(lang) {
 writeFileSync(new URL("./public/index.html", import.meta.url), build("is"));
 mkdirSync(new URL("./public/en/", import.meta.url), { recursive: true });
 writeFileSync(new URL("./public/en/index.html", import.meta.url), build("en"));
+// Test version, served by worker.js on test.gulf.is only
+mkdirSync(new URL("./public/_test/en/", import.meta.url), { recursive: true });
+writeFileSync(new URL("./public/_test/index.html", import.meta.url), build("is", true));
+writeFileSync(new URL("./public/_test/en/index.html", import.meta.url), build("en", true));
 
 // Sitemap with both languages linked to each other, dated by the build
 const today = new Date().toISOString().slice(0, 10);
@@ -177,4 +188,4 @@ writeFileSync(
   new URL("./public/sitemap.xml", import.meta.url),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`,
 );
-console.log("Built public/index.html (is), public/en/index.html (en) and public/sitemap.xml");
+console.log("Built public/index.html (is), public/en/index.html (en), public/_test/ (test.gulf.is) and public/sitemap.xml");

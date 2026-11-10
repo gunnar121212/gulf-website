@@ -11,7 +11,7 @@ English page. Every push to `main` is deployed by Cloudflare Workers
 
 ```
 wrangler.jsonc                 Cloudflare Worker config: domains, serves ./public
-worker.js                      Redirects http, www and test to https://gulf.is
+worker.js                      Redirects http and www to https://gulf.is; serves the test version on test.gulf.is
 build.mjs                      Builds both pages and public/sitemap.xml
 src/
   index.html                   Bilingual source for all four pages
@@ -63,9 +63,13 @@ are uploaded as preview versions with their own workers.dev URL.
 
 The Worker answers on gulf.is, www.gulf.is and test.gulf.is (custom domains in
 `wrangler.jsonc`; Cloudflare creates their DNS records and certificates).
-`worker.js` sends plain http, www and test to https://gulf.is with a permanent
-redirect (and `_headers` sets HSTS), so search
-engines see one site.
+`worker.js` sends plain http and www to https://gulf.is with a permanent
+redirect (and `_headers` sets HSTS).
+
+**Test version.** test.gulf.is shows `public/_test/`, built from the same
+source. Anything between `<!--test-only-->` and `<!--/test-only-->` in
+`src/index.html` appears only there (right now: the client logo bar).
+test.gulf.is is marked noindex, and gulf.is never serves `/_test/`.
 
 Search engines may index the site. Each page has its own title, description,
 canonical, hreflang links, Open Graph tags and schema.org data (GULF as a
