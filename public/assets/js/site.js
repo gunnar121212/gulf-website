@@ -127,3 +127,34 @@
     if (e.key === "Escape") closeAll();
   });
 })();
+
+// Client logo bar (test.gulf.is only): move two logos at a time, then pause,
+// instead of rolling continuously. Pauses while hovered or focused.
+(function () {
+  var track = document.querySelector(".clients .track");
+  if (!track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var items = track.children, SET = 5, STEP = 2, PAUSE = 2600, MOVE = 900;
+  var bar = track.closest(".clients"), idx = 0, held = false;
+  track.classList.add("stepped");
+  function pos(i) { return items[i].offsetLeft - items[0].offsetLeft; }
+  function place(animate) {
+    track.style.transition = animate ? "transform " + MOVE + "ms cubic-bezier(.45,0,.25,1)" : "none";
+    track.style.transform = "translateX(" + -pos(idx) + "px)";
+  }
+  function tick() {
+    if (!held && !document.hidden && bar.offsetParent) {
+      idx += STEP;
+      place(true);
+      setTimeout(function () {
+        if (idx >= SET) { idx -= SET; place(false); void track.offsetWidth; }
+      }, MOVE + 50);
+    }
+    setTimeout(tick, PAUSE + MOVE);
+  }
+  bar.addEventListener("mouseenter", function () { held = true; });
+  bar.addEventListener("mouseleave", function () { held = false; });
+  bar.addEventListener("focusin", function () { held = true; });
+  bar.addEventListener("focusout", function () { held = false; });
+  window.addEventListener("resize", function () { place(false); });
+  setTimeout(tick, PAUSE);
+})();
