@@ -596,6 +596,23 @@ body > main {
   animation: none;
   will-change: transform;
 }
+/* Phones: three equal slots in view, each logo fitted inside its slot */
+@media (max-width: 600px) and (prefers-reduced-motion: no-preference) {
+  .track-wrap {
+    container-type: inline-size;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .track li[class^="lg-"] {
+    width: calc(100cqw / 3);
+    height: 30px;
+    margin-right: 0;
+    padding-inline: 12px;
+    box-sizing: border-box;
+    background-origin: content-box;
+    background-clip: content-box;
+  }
+}
 @keyframes roll {
   0% {
     transform: translateX(0px);
