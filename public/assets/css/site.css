@@ -591,6 +591,11 @@ body > main {
 .clients:hover .track {
   animation-play-state: paused;
 }
+/* site.js moves the logos two at a time instead of rolling */
+.track.stepped {
+  animation: none;
+  will-change: transform;
+}
 @keyframes roll {
   0% {
     transform: translateX(0px);
