@@ -596,22 +596,29 @@ body > main {
   animation: none;
   will-change: transform;
 }
-/* Phones: three equal slots in view, each logo fitted inside its slot */
-@media (max-width: 600px) and (prefers-reduced-motion: no-preference) {
-  .track-wrap {
-    container-type: inline-size;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-  .track li[class^="lg-"] {
-    width: calc(100cqw / 3);
-    height: 30px;
-    margin-right: 0;
-    padding-inline: 12px;
-    box-sizing: border-box;
-    background-origin: content-box;
-    background-clip: content-box;
-  }
+/* Stepped bar: equal slots that fill the bar exactly, so a logo is never cut
+   at the edges. 3 slots on phones, 4 or 5 on wider screens. */
+.track-wrap:has(.track.stepped) {
+  container-type: inline-size;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.track.stepped li[class^="lg-"] {
+  width: calc(100cqw / 3);
+  margin-right: 0;
+  padding-inline: 14px;
+  box-sizing: border-box;
+  background-origin: content-box;
+  background-clip: content-box;
+}
+@container (min-width: 640px) {
+  .track.stepped li[class^="lg-"] { width: calc(100cqw / 4); padding-inline: 20px; }
+}
+@container (min-width: 1000px) {
+  .track.stepped li[class^="lg-"] { width: calc(100cqw / 5); padding-inline: 24px; }
+}
+@media (max-width: 600px) {
+  .track.stepped li[class^="lg-"] { height: 30px; }
 }
 @keyframes roll {
   0% {
