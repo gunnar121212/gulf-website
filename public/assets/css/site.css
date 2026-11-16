@@ -611,8 +611,13 @@ body > main {
   background-origin: content-box;
   background-clip: content-box;
 }
-@container (min-width: 640px) {
-  .track.stepped li[class^="lg-"] { padding-inline: 32px; }
+@container (min-width: 560px) {
+  .track.stepped li[class^="lg-"] { padding-inline: 20px; }
+}
+/* Wider screens: the bar is three 200px slots wide, so the logos sit as close
+   together as they did with four in view */
+@media (min-width: 601px) {
+  .track-wrap:has(.track.stepped) { flex: 0 1 600px; }
 }
 @media (max-width: 600px) {
   .track.stepped li[class^="lg-"] { height: 30px; }
