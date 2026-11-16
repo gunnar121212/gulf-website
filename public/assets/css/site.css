@@ -619,9 +619,10 @@ body > main {
 @media (min-width: 601px) {
   .track-wrap:has(.track.stepped) {
     flex: 0 1 540px;
-    margin-left: auto;
     margin-right: 98px;
   }
+  /* the label sits just left of the bar instead of at the far left */
+  .clients-in:has(.track.stepped) .clabel { margin-left: auto; }
 }
 @media (max-width: 600px) {
   .track.stepped li[class^="lg-"] { height: 30px; }
