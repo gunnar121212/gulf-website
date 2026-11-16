@@ -614,10 +614,14 @@ body > main {
 @container (min-width: 560px) {
   .track.stepped li[class^="lg-"] { padding-inline: 20px; }
 }
-/* Wider screens: the bar is three 200px slots wide, so the logos sit as close
-   together as they did with four in view */
+/* Wider screens: a compact bar of three 180px slots, its right edge lined up
+   with "Hafa samband" in the top menu (98px in from the end of the row) */
 @media (min-width: 601px) {
-  .track-wrap:has(.track.stepped) { flex: 0 1 600px; }
+  .track-wrap:has(.track.stepped) {
+    flex: 0 1 540px;
+    margin-left: auto;
+    margin-right: 98px;
+  }
 }
 @media (max-width: 600px) {
   .track.stepped li[class^="lg-"] { height: 30px; }
