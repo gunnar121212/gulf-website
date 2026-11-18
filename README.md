@@ -68,7 +68,7 @@ redirect (and `_headers` sets HSTS).
 
 **Test version.** test.gulf.is shows `public/_test/`, built from the same
 source. Anything between `<!--test-only-->` and `<!--/test-only-->` in
-`src/index.html` appears only there (right now: the client logo bar).
+`src/index.html` appears only there (right now: nothing).
 test.gulf.is is marked noindex, and gulf.is never serves `/_test/`.
 
 Search engines may index the site. Each page has its own title, description,

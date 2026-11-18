@@ -128,12 +128,12 @@
   });
 })();
 
-// Client logo bar (test.gulf.is only): move one logo at a time, then pause,
+// Client logo bar: move one logo at a time, then pause,
 // instead of rolling continuously. Pauses while hovered or focused.
 (function () {
   var track = document.querySelector(".clients .track");
   if (!track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var items = track.children, SET = 5, STEP = 1, PAUSE = 2600, MOVE = 900;
+  var items = track.children, SET = 4, STEP = 1, PAUSE = 2600, MOVE = 900;
   var bar = track.closest(".clients"), idx = 0, held = false;
   track.classList.add("stepped");
   function pos(i) { return items[i].offsetLeft - items[0].offsetLeft; }
