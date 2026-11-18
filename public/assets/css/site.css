@@ -583,11 +583,6 @@ body > main {
   height: 36px;
   width: 129.5px;
 }
-.track li.lg-raudikrossinn {
-  background-image: url("../img/clients/raudikrossinn.svg");
-  height: 38px;
-  width: 173.6px;
-}
 .clients:hover .track {
   animation-play-state: paused;
 }
@@ -642,7 +637,7 @@ body > main {
     width: auto;
     gap: 12px 32px;
   }
-  .track li:nth-child(n + 6) {
+  .track li:nth-child(n + 5) {
     display: none;
   }
   .track-wrap {
